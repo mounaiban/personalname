@@ -1,0 +1,363 @@
+{
+    "name": "PersonalName Basic Test Suite",
+    "tests": {
+
+        "count_alt_names": {
+            "fn_name": "count_alt_names",
+            "init": {
+                "name_str": "Victor Chang (ahcheong, vchang)",
+                "config_str": "N1=1;NS=2"
+            },
+            "out": 2
+        },
+
+        "count_alt_names_no_alt_names": {
+            "fn_name": "count_alt_names",
+            "init": {
+                "name_str": "Victor Chang",
+                "config_str": "N1=1;NS=2"
+            },
+            "out": 0
+        },
+
+        "count_alt_names_no_alt_names_with_artifacts": {
+            "fn_name": "count_alt_names",
+            "init": {
+                "name_str": "Victor Chang ()",
+                "config_str": "N1=1;NS=2"
+            },
+            "out": 0
+        },
+
+        "count_main_name_elements": {
+            "fn_name": "count_main_name_elements",
+            "init": {
+                "name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi (0effort)",
+                "config_str": "N1=1;FD=2;F1=3;NS=4"
+            },
+            "out": 4
+        },
+
+        "count_main_name_elements_empty_name": {
+            "fn_name": "count_main_name_elements",
+            "init": {
+                "name_str": "",
+                "config_str": ""
+            },
+            "out": 0
+        },
+
+        "get_alt_name": {
+            "fn_name": "get_alt_name",
+            "init": {"name_str": "Victor Chang (vchang, ahcheong)"},
+            "out": "vchang"
+        },
+
+        "get_alt_name_numindex": {
+            "fn_name": "get_alt_name",
+            "init": {"name_str": "Victor Chang (vchang, ahcheong)"},
+            "args": {"i": 2},
+            "out": "ahcheong"
+        },
+
+        "get_alt_name_numindex_outofrange": {
+            "fn_name": "get_alt_name",
+            "init": {"name_str": "Victor Chang (vchang, ahcheong)"},
+            "args": {"i": 4},
+            "out": ""
+        },
+
+        "get_alt_name_by_netname": {
+            "fn_name": "get_alt_name",
+            "init": {
+                "name_str": "Victor Chang (vchang, ahcheong, doctorahcheong1)",
+                "config_str": "N1=1;NS=2;NN:example.com=3"
+            },
+            "args": {"i": "example.com"},
+            "out": "doctorahcheong1"
+        },
+
+        "get_alt_name_by_netname_notfound": {
+            "fn_name": "get_alt_name",
+            "init": {
+                "name_str": "Victor Chang (vchang, ahcheong, doctorahcheong1)",
+                "config_str": "N1=1;NS=2;NN:example.com=3"
+            },
+            "args": {"i": "vines.com"},
+            "out": ""
+        },
+
+        "get_formatted_name": {
+            "fn_name": "get_formatted_name",
+            "init": {
+                "name_str": "Victor Chang (vchang)",
+                "config_str": "N1=1;NS=2"
+            },
+            "args": {"fmt": "{NS} {N1}"},
+            "out": "Chang Victor"
+        },
+
+        "get_formatted_name_empty_tag": {
+            "fn_name": "get_formatted_name",
+            "init": {
+                "name_str": "Victor Chang (vchang)",
+                "config_str": "N1=1;NS=2"
+            },
+            "args": {"fmt": "{}"},
+            "out": "{}"
+        },
+
+        "get_formatted_name_extra_chars": {
+            "fn_name": "get_formatted_name",
+            "init": {
+                "name_str": "Victor Chang (vchang)",
+                "config_str": "N1=1;NS=2"
+            },
+            "args": {
+                "fmt": "\u2728{N1}\u2764\ufe0f\u200d\ud83e\ude79{NS}\u2728"
+            },
+            "out": "\u2728Victor\u2764\ufe0f\u200d\ud83e\ude79Chang\u2728"
+        },
+
+        "get_formatted_name_missing_close": {
+            "fn_name": "get_formatted_name",
+            "init": {
+                "name_str": "Victor Chang (vchang)",
+                "config_str": "N1=1;NS=2"
+            },
+            "args": {"fmt": "{NS} {N1"},
+            "out": "Chang {N1"
+        },
+
+        "get_formatted_name_undefined_elements": {
+            "fn_name": "get_formatted_name",
+            "init": {
+                "name_str": "Victor Chang (vchang)",
+                "config_str": "N1=1;NS=2"
+            },
+            "args": {"fmt": "{N1} {FD} {FN} {NS}"},
+            "out": "Victor   Chang"
+        },
+
+        "get_formatted_name_unsupported_element": {
+            "fn_name": "get_formatted_name",
+            "init": {
+                "name_str": "Victor Chang (vchang)",
+                "config_str": "N1=2;NS=1"
+            },
+            "args": {"fmt": "{UNSUPPORTED}{WTF}"},
+            "out": "{UNSUPPORTED}{WTF}"
+        },
+
+        "get_main_name": {
+            "fn_name": "get_main_name",
+            "init": {"name_str": "Victor Chang (vchang)"},
+            "out": "Victor Chang"
+        },
+
+        "get_main_name_no_alts": {
+            "fn_name": "get_main_name",
+            "init": {"name_str": "Victor Chang"},
+            "out": "Victor Chang"
+        },
+
+        "get_main_name_element": {
+            "fn_name": "get_main_name_element",
+            "init": {"name_str": "Victor Chang (vchang)"},
+            "args": {"i": 2},
+            "out": "Chang"
+        },
+
+        "get_main_name_element_negativeindex": {
+            "fn_name": "get_main_name_element",
+            "init": {"name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi"},
+            "args": {"i": -1},
+            "out": "al-Khwarizmi"
+        },
+
+        "get_main_name_element_negativeindex2": {
+            "fn_name": "get_main_name_element",
+            "init": {"name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi"},
+            "args": {"i": -2},
+            "out": "Abu Bakr"
+        },
+
+        "get_main_name_element_with_space": {
+            "fn_name": "get_main_name_element",
+            "init": {"name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi"},
+            "args": {"i": 3},
+            "out": "Abu Bakr"
+        },
+
+        "get_main_name_element_by_type": {
+            "fn_name": "get_main_name_element",
+            "init": {
+                "name_str": "Victor Chang (vchang)",
+                "config_str":"N1=1;NS=2"
+            },
+            "args": {"i": "NS"},
+            "out": "Chang"
+        },
+
+        "get_main_name_element_by_type_notpresent": {
+            "fn_name": "get_main_name_element",
+            "init": {
+                "name_str": "Victor Chang (vchang)",
+                "config_str":"N1=1;NS=2"
+            },
+            "args": {"i": "FD"},
+            "out": ""
+        },
+
+        "get_main_name_element_by_type_notsupported": {
+            "fn_name": "get_main_name_element",
+            "init": {
+                "name_str": "Victor Chang (vchang)",
+                "config_str":"N1=1;NS=2"
+            },
+            "args": {"i": "OTHER"},
+            "exception": "key"
+        },
+
+
+        "get_main_name_element_type_NS": {
+            "fn_name": "get_main_name_element_type",
+            "init": {
+                "name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi (0effort)",
+                "config_str":"N1=1;FD=2;F1=3;NS=4"
+            },
+            "args": {"el": "al-Khwarizmi"},
+            "out": "NS"
+        },
+
+        "get_main_name_element_type_F1": {
+            "fn_name": "get_main_name_element_type",
+            "init": {
+                "name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi (0effort)",
+                "config_str":"N1=1;FD=2;F1=3;NS=4"
+            },
+            "args": {"el": "Abu Bakr"},
+            "out": "F1"
+        },
+
+        "get_main_name_element_type_F1_SN": {
+            "fn_name": "get_main_name_element_type",
+            "init": {
+                "name_str": "Srinivasa Ramanujan",
+                "config_str":"F1=1;NS=F1;N1=2"
+            },
+            "args": {"el": "Srinivasa"},
+            "out": "NS;F1"
+        },
+
+        "get_main_name_element_type_FD": {
+            "fn_name": "get_main_name_element_type",
+            "init": {
+                "name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi (0effort)",
+                "config_str":"N1=1;FD=2;F1=3;NS=4"
+            },
+            "args": {"el": "ibn"},
+            "out": "FD"
+        },
+
+        "get_main_name_element_no_alts": {
+            "fn_name": "get_main_name_element",
+            "init": {"name_str": "Victor Chang"},
+            "args": {"i": 1},
+            "out": "Victor"
+        },
+
+        "get_main_name_nosp": {
+            "fn_name": "get_main_name_nosp",
+            "init": {"name_str": "이 도 (YiDo)"},
+            "out": "이도"
+        },
+
+        "get_config_str": {
+            "fn_name": "get_config_str",
+            "init": {
+                "name_str": "Srinivasa Ramanujan",
+                "config_str": "N1=2;NS=1;F1=NS"
+            },
+            "out": "N1=2;NS=1;F1=1"
+        },
+
+        "get_config_str_different_order": {
+            "fn_name": "get_config_str",
+            "init": {
+                "name_str": "Srinivasa Ramanujan",
+                "config_str": "NS=1;F1=NS;N1=2"
+            },
+            "out": "N1=2;NS=1;F1=1"
+        },
+
+        "get_config_str_empty_name_empty_config": {
+            "fn_name": "get_config_str",
+            "init": {"name_str": ""},
+            "out": ""
+        },
+
+        "parse_config_indexes": {
+            "fn_name": "parse_config",
+            "init": {"name_str": "test"},
+            "args": {"config_str": "N1=1;NS=2"},
+            "out": {"N1": 1, "NS": 2}
+        },
+
+        "parse_config_circularref": {
+            "fn_name": "parse_config",
+            "init": {"name_str": "test"},
+            "args": {"config_str": "OTHER_A=OTHER_B;OTHER_B=OTHER_A"},
+            "out": {"OTHER_A": "OTHER_B", "OTHER_B": "OTHER_A"}
+        },
+
+        "parse_config_multiassign": {
+            "fn_name": "parse_config",
+            "init": {"name_str": "test"},
+            "args": {"config_str": "NS=1;NS=2"},
+            "exception": "key"
+        },
+
+        "parse_config_multiassign_longer": {
+            "fn_name": "parse_config",
+            "init": {"name_str": "test"},
+            "args": {"config_str": "NN:fb=1;N1=1;NM=2;FD=3;F1=4;SN=6;NN:fb=1"},
+            "exception": "key"
+        },
+
+        "parse_config_onevalue": {
+            "fn_name": "parse_config",
+            "init": {"name_str": "test"},
+            "args": {"config_str": "N1=1"},
+            "out": {"N1": 1}
+        },
+
+        "parse_config_selfreference": {
+            "fn_name": "parse_config",
+            "init": {"name_str": "test"},
+            "args": {"config_str": "OTHER=OTHER"},
+            "out": {"OTHER": "OTHER"}
+        },
+
+        "parse_config_selfreference_supportedtype": {
+            "fn_name": "parse_config",
+            "init": {"name_str": "test"},
+            "args": {"config_str": "N1=N1"},
+            "exception": "value"
+        },
+
+        "parse_config_indexes_alias_after": {
+            "fn_name": "parse_config",
+            "init": {"name_str": "test"},
+            "args": {"config_str": "N1=1;F1=3;NS=F1"},
+            "out": {"N1":1, "F1": 3, "NS":3}
+        },
+
+        "parse_config_indexes_alias_before": {
+            "fn_name": "parse_config",
+            "init": {"name_str": "test"},
+            "args": {"config_str": "NS=F1;N1=1;F1=3"},
+            "out": {"NS":3, "N1": 1, "F1":3}
+        }
+    }
+}
