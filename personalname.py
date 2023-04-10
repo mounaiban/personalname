@@ -1,7 +1,8 @@
 """
 Personal Name Class for Python
 
-An object for processing personal names of varying formats
+Reference implementation of the Personal Name Toolkit
+for object-oriented platforms
 
 """
 # Copyright 2023 by Moses Chong

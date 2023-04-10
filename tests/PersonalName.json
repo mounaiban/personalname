@@ -219,7 +219,6 @@
             "exception": "key"
         },
 
-
         "get_main_name_element_type_NS": {
             "fn_name": "get_main_name_element_type",
             "init": {
