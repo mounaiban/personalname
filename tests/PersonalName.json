@@ -267,6 +267,104 @@
             "out": "Victor"
         },
 
+        "get_main_name_elements_as_str_mixed_1_ns": {
+            "fn_name": "get_main_name_elements_as_str",
+            "init": { "name_str": "Victor Chang" },
+            "args": {"s": -1, "e": 1},
+            "exception": "index"
+        },
+
+        "get_main_name_elements_as_str_mixed_1_ne": {
+            "fn_name": "get_main_name_elements_as_str",
+            "init": { "name_str": "Victor Chang" },
+            "args": {"s": 1, "e": -2},
+            "exception": "index"
+        },
+
+        "get_main_name_elements_as_str_mixed_5_ne": {
+            "fn_name": "get_main_name_elements_as_str",
+            "init": { "name_str": "Victor Chang" },
+            "args": {"s": 2, "e": -7},
+            "exception": "index"
+        },
+
+        "get_main_name_elements_as_str_ebefores_1": {
+            "fn_name": "get_main_name_elements_as_str",
+            "init": { "name_str": "Victor Chang" },
+            "args": {"s": 2, "e": 1},
+            "exception": "index"
+        },
+
+        "get_main_name_elements_as_str_ebefores_1_ns": {
+            "fn_name": "get_main_name_elements_as_str",
+            "init": { "name_str": "Victor Chang" },
+            "args": {"s": -1, "e": -2},
+            "exception": "index"
+        },
+
+        "get_main_name_elements_as_str_neg_1_end": {
+            "fn_name": "get_main_name_elements_as_str",
+            "init": {
+                "name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi (0effort)"
+            },
+            "args": {"s": -1, "e": -1},
+            "out": "al-Khwarizmi"
+        },
+
+        "get_main_name_elements_as_str_neg_1_mid": {
+            "fn_name": "get_main_name_elements_as_str",
+            "init": {
+                "name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi (0effort)"
+            },
+            "args": {"s": -3, "e": -3},
+            "out": "ibn"
+        },
+
+        "get_main_name_elements_as_str_pos_1_mid": {
+            "fn_name": "get_main_name_elements_as_str",
+            "init": {
+                "name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi (0effort)"
+            },
+            "args": {"s": 3, "e": 3},
+            "out": "Abu Bakr"
+        },
+
+        "get_main_name_elements_as_str_pos_1_start": {
+            "fn_name": "get_main_name_elements_as_str",
+            "init": {
+                "name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi (0effort)"
+            },
+            "args": {"s": 1, "e": 1},
+            "out": "Muhammad"
+        },
+
+        "get_main_name_elements_as_str_pos_2_start": {
+            "fn_name": "get_main_name_elements_as_str",
+            "init": {
+                "name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi (0effort)"
+            },
+            "args": {"s": 1, "e": 2},
+            "out": "Muhammad ibn"
+        },
+
+        "get_main_name_elements_as_str_pos_3_end": {
+            "fn_name": "get_main_name_elements_as_str",
+            "init": {
+                "name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi (0effort)"
+            },
+            "args": {"s": 2, "e": 4},
+            "out": "ibn Abu Bakr al-Khwarizmi"
+        },
+
+        "get_main_name_elements_as_str_until_end": {
+            "fn_name": "get_main_name_elements_as_str",
+            "init": {
+                "name_str": "Muhammad ibn Abu_Bakr al-Khwarizmi (0effort)"
+            },
+            "args": {"s": 2, "e": -1},
+            "out": "ibn Abu Bakr al-Khwarizmi"
+        },
+
         "get_main_name_nosp": {
             "fn_name": "get_main_name_nosp",
             "init": {"name_str": "이 도 (YiDo)"},

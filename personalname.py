@@ -330,9 +330,10 @@ class PersonalName:
 
     def get_main_name_element(self, i):
         """
-        Return an element of the main name of a specific type, or
-        by index. Elements will be returned in presentation-ready
-        form with spaces in place of space substitutes.
+        Return a single element (component) of the main name of a
+        specific type, or by numerical index. Elements will be
+        returned in presentation-ready form with spaces in place
+        of space substitutes.
 
         e = PersonalName(
             'Enrique Miguel Iglesias Preysler',
@@ -355,17 +356,62 @@ class PersonalName:
             else: raise KeyError('unsupported element')
         if not i: raise IndexError('first element is one')
         nit: iter
+        return self.get_main_name_elements_as_str(i, i)
+
+    def get_main_name_elements_as_str(self, s, e, sep=' '):
+        """
+        Return multiple elements (components) of the main name by
+        numerical index, from s to e inclusive. The first element
+        of the main name has an index of one (1).
+
+        Negative indexes are also supported; these address the main
+        name elements from the end to the start. The index of the
+        last element is -1.
+
+        Positive and negative indexes cannot be used together,
+        except for when e is -1.
+
+        Out-of-bounds indexes are substituted for the highest (or
+        lowest for negative indexes) index possible.
+
+        e = PersonalName('Enrique Miguel Iglesias Preysler')
+        e.get_main_name_elements_as_str(1, 2) => 'Enrique Miguel'
+        e.get_main_name_elements_as_str(-2, -1) => 'Iglesias Preysler'
+        e.get_main_name_elements_as_str(2, -1) => 'Miguel Iglesias Preysler'
+
+        The separator can be changed by setting sep, the default
+        is an ASCII space (U+0020).
+
+        """
+        out = ""
+        n = e-s
+        # reject invalid start and end settings
+        if s > e and e != -1: raise IndexError('start must come before end')
+        elif (s < 1 and e >= 1) or (s >= 1 and e < 1) and e!= -1:
+            raise IndexError('cannot use positive with negative indices')
+        # get elements
         try:
-            if i < 1:
-                s = self._i_alt_list_start
-                nit = (x for x in reversed(self.name_string[:s].split()) if not x.isspace())
-                for x in range(i+1, 0): next(nit)
+            if s < 1:
+                mend = self._i_alt_list_start
+                nit = (x for x in reversed(self.name_string[:mend].split()) if not x.isspace())
+                for x in range(e+1, 0): next(nit) # skip
+                for x in range(n+1):
+                    out = ''.join((next(nit), sep, out))
+                out = out.rstrip()
             else:
                 nit = self._main_name_iter()
-                for x in range(i-1): next(nit)
-            return next(nit).translate(self._tdict)
+                for x in range(s-1): next(nit) # skip
+                if e == -1:
+                    for x in nit:
+                        out = ''.join((out, sep, x))
+                else:
+                    for x in range(n+1):
+                        out = ''.join((out, sep, next(nit)))
+                out = out.lstrip()
         except StopIteration:
-            return self.DEFAULT_OUT
+            pass
+        finally:
+            return out.translate(self._tdict)
 
     def get_main_name_element_type(self, el):
         """
