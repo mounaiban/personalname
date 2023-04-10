@@ -37,7 +37,7 @@ class PersonalName:
     """
     CONFIG_SEP = '\u003b'     # ; semicolon
     CONFIG_KV_SEP = '\u003d'  # = equals
-    DEFAULT_CONFIG = {
+    CONFIG_DEFAULT = { # configurables and their default values
         'ALED': '\u0029',  # Alt Name List End: ) right parenthesis
         'ALSE': '\u002C',  # Alt Name List Separator: , comma
         'ALST': '\u0028',  # Alt Name List Start: ( left parenthesis
@@ -184,15 +184,14 @@ class PersonalName:
         be left unchanged if already set, or set to defaults
         otherwise.
 
-        Please see DEFAULT_CONFIG for defaults and supported settings.
+        Please see CONFIG_DEFAULT for defaults and supported settings.
 
         """
-        # TODO: Rename DEFAULT_CONFIG to CONFIG_DEFAULT?
         # set delimiters and separators
-        for k in self.DEFAULT_CONFIG:
+        for k in self.CONFIG_DEFAULT:
             if k in config_dict: self._config[k] = config_dict[k]
             elif k in self._config: pass
-            else: self._config[k] = self.DEFAULT_CONFIG[k]
+            else: self._config[k] = self.CONFIG_DEFAULT[k]
         # set main name elements
         for k in self.INDEXES_MAIN_NAME:
             if k in config_dict: self._config[k] = config_dict[k]
@@ -224,8 +223,8 @@ class PersonalName:
             '{}', self.CONFIG_KV_SEP, '{}', self.CONFIG_SEP
         )
         # configuration
-        for k in self.DEFAULT_CONFIG.keys():
-            if self._config[k] != self.DEFAULT_CONFIG[k]:
+        for k in self.CONFIG_DEFAULT.keys():
+            if self._config[k] != self.CONFIG_DEFAULT[k]:
                 out = ''.join((out, cv_fmt_L1.format(k, self._config[k])))
         # main name element indices
         for k in (x for x in self._config if x in self.INDEXES_MAIN_NAME):
