@@ -44,7 +44,7 @@ class PersonalName:
         'MNSP': '\u0020',  # Main Name Space: ASCII space
         'MNSU': '\u005f',  # Main Name Space Substitute: _ underscore
     }
-    DEFAULT_OUT = ''       # Returned value for invalid indexes
+    OUT_DEFAULT = ''       # Returned value for invalid indexes
     INDEXES_MAIN_NAME = (  # Main Name Element Types also used as index keys
         'N1', # First Name
         'NM', # Middle Name
@@ -351,7 +351,7 @@ class PersonalName:
                 raise KeyError('{}: use get_alt_name for alternate names'.format(i))
             if i in self.INDEXES_MAIN_NAME:
                 i = self._config.get(i, self.NOT_PRESENT)
-                if not i: return self.DEFAULT_OUT
+                if not i: return self.OUT_DEFAULT
             else: raise KeyError('unsupported element')
         if not i: raise IndexError('first element is one')
         nit: iter
@@ -467,7 +467,7 @@ class PersonalName:
                 (self.NICKNAME_PREFIX, self.NICKNAME_NET_DELIM, i)
             )
             if nn_fq not in self._config:
-                return self.DEFAULT_OUT
+                return self.OUT_DEFAULT
             else: i = self._config.get(nn_fq)
         elif self._i_alt_list_start == len(self.name_string):
             raise IndexError('no alternate names found')
@@ -480,7 +480,7 @@ class PersonalName:
                 next(anit)
             return next(anit).strip()
         except StopIteration:   # end of names reached
-            return self.DEFAULT_OUT
+            return self.OUT_DEFAULT
 
     def get_main_name(self):
         """
