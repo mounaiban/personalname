@@ -31,6 +31,7 @@ class data_defined_tests(TestCase):
                                 obj = c(**tspecs.get('init', {}))
                                 fn = getattr(obj, tspecs['fn_name'])
                                 kwargs = tspecs.get('args', {})
+                                # TODO: multiple calls are not yet implemented
                                 if 'exception' in tspecs:
                                     with self.assertRaises(
                                         exceptions[tspecs['exception']]

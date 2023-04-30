@@ -68,6 +68,7 @@ TEST_SPEC
         TEST_NAME: {
             "fn_name": FUNCTION_NAME,
             "init": OBJECT_INIT_STATE,
+            "args": ARGUMENTS,
             "out": EXPECTED_OUTPUT,
             "error": EXPECTED_EXCEPTION
         }
@@ -78,6 +79,45 @@ The name is case-sensitive on most platforms.
 
 ``EXPECTED_OUTPUT`` is the output of the function, as encoded as a
 JSON object.
+
+ARGUMENTS
+=========
+These are arguments to be used with the function named by ``fn_name``.
+Arguments may be presented as a single JSON object, or an array of
+objects.
+
+A single object contains arguments for a single call of the function.
+For example, given a function ``rate_comment``, the following
+arguments:
+
+::
+
+  {"rating": 5, "comment": "i dont care i love it"}
+
+Corresponds to the single function call:
+
+::
+
+  rate_comment(rating=5, comment='i dont care i love it')
+
+An array of objects contains arguments for multiple calls, in order of
+appearence in the array. Given a function ``rate_comment``, the
+following array:
+
+::
+
+    [
+        {"rating": 1, "comment": "shake it off"},
+        {"rating": 5, "comment": "shook me all night long"}
+    ]
+
+Translates to the following consecutive calls in the same order:
+
+::
+
+    rate_comment(rating=1, comment='shake it off')
+    rate_comment(rating=5, comment='shook me all night long')
+
 
 OBJECT_INIT_STATE
 =================
